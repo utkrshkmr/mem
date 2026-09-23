@@ -1,0 +1,1 @@
+source_cluster_id,source_url,license,source_revision,prefix_cut_utc,prefix_evidence_spans,suffix_evidence_spans,question,typed_answer,answer_evidence_spans,reviewer_1_decision,reviewer_2_decision,adjudication,ambiguity,split,lineage_sha256

@@ -1,0 +1,267 @@
+{
+  "spec_version": 3,
+  "run": {
+    "study": "F2",
+    "name": "fork_development",
+    "seed": 101,
+    "protocol": "continuation_blind_v3",
+    "development_only": true,
+    "arm": "F03_fork",
+    "mode": "train"
+  },
+  "model": {
+    "writer": "Qwen/Qwen2.5-7B-Instruct",
+    "reader": "Qwen/Qwen2.5-7B-Instruct",
+    "writer_revision": "RESOLVE_AND_PIN",
+    "reader_revision": "RESOLVE_AND_PIN",
+    "dtype": "bfloat16",
+    "attention": "sdpa",
+    "chat_template_kwargs": {},
+    "native_window": "FROM_PINNED_CONFIG",
+    "quantization": null
+  },
+  "initialization": {
+    "writer_adapter": null,
+    "writer_adapter_sha256": null,
+    "format_training_manifest": null,
+    "raw_base_format_error_rate": null,
+    "use_shared_format_initialization": false
+  },
+  "tokenization": {
+    "memory_reference": "Qwen/Qwen2.5-7B-Instruct",
+    "reference_revision": "RESOLVE_AND_PIN",
+    "token_count_add_special_tokens": false
+  },
+  "observation": {
+    "reference_chunk_cap": 1024,
+    "policy_chunk_cap": 1280,
+    "pack_within_session": true,
+    "split_long_turns": true,
+    "manifest": "BUILD_ONCE_AND_FREEZE"
+  },
+  "writer_budget": {
+    "total": 8192,
+    "system": 1536,
+    "chunk": 1280,
+    "index": 1536,
+    "loaded": 2048,
+    "last_result": 256,
+    "framing_slack": 256,
+    "generation": 768
+  },
+  "reader_budget": {
+    "total": 8192,
+    "system": 768,
+    "question": 512,
+    "memory": 6144,
+    "framing_slack": 256,
+    "generation": 256
+  },
+  "memory": {
+    "capacity_ref_tokens": 1024,
+    "max_entries": 64,
+    "max_key_ref_tokens": 24,
+    "max_value_ref_tokens": 256,
+    "serializer_version": "canonical_v1",
+    "include_visible_metadata_in_capacity": true,
+    "eviction": "reject",
+    "oversize": "reject",
+    "writer_tools": "full",
+    "expose_raw_history_search": false,
+    "accounting_version": "whole_store_v3",
+    "primary_index_overflow": "reject"
+  },
+  "environment": {
+    "max_writer_calls_per_chunk": 3,
+    "writer_question_visibility": "blind",
+    "writer_prior": "declared_task_prior",
+    "carry_loaded_across_chunks": false,
+    "carry_tool_result_across_chunks": false,
+    "mutable_reader_state": false,
+    "user_scope": "one_identity_per_history",
+    "persistence": "within_history_only"
+  },
+  "reader": {
+    "trainable": false,
+    "decoding": "greedy",
+    "memory_view": "all_retained",
+    "order": "creation_order",
+    "tools": "none",
+    "expose_writer_index_separately": false,
+    "output_format": "json_answer",
+    "copies_per_query": 1
+  },
+  "retrieval": {
+    "enabled": false,
+    "method": "bm25",
+    "max_results": 8,
+    "candidate_unit": "entry",
+    "snippet_policy": "none",
+    "dense_token_limit": 512,
+    "dense_long_entry_policy": "overlapping_windows"
+  },
+  "data": {
+    "train": "continuation_train_v3",
+    "validation": "continuation_dev_v3",
+    "final_external": [
+      "longmemeval_s_cleaned",
+      "locomo10"
+    ],
+    "train_histories": 4096,
+    "dev_histories": 256,
+    "locked_synthetic_test_histories_per_cell": 128,
+    "train_lengths_ref": [
+      8000,
+      16000,
+      32000
+    ],
+    "train_candidate_counts": [
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "main_test_length_ref": 32000,
+    "main_test_candidate_counts": [
+      32,
+      128,
+      512
+    ],
+    "training_query_cohort": "skew_80_20",
+    "training_questions_per_group": 8,
+    "questions_hidden_until_writer_finished": true,
+    "allow_external_test_for_selection": false,
+    "background_split_by_book": true,
+    "renderer_split_by_template_family": true,
+    "conditional_sampling_rule": "reject_infeasible_pair_and_log"
+  },
+  "rl": {
+    "estimator": "rloo_pg",
+    "component": "writer_only",
+    "groups_per_iteration": 4,
+    "trajectories_per_group": 4,
+    "iterations": 200,
+    "writer_temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": -1,
+    "repetition_penalty": 1.0,
+    "learning_rate": 5e-06,
+    "warmup_iterations": 10,
+    "gradient_clip": 1.0,
+    "weight_decay": 0.0,
+    "microbatch_calls": 1,
+    "selected_calls_per_iteration": 256,
+    "call_sampling": "uniform_without_replacement",
+    "estimator_scale": 256,
+    "normalize_advantages": false,
+    "kl_beta": 0.0,
+    "reward": {
+      "task_weight": 1.0,
+      "call_penalty": 0.0,
+      "format_penalty": 0.0,
+      "gold_retention_shaping": 0.0
+    },
+    "lora": {
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.0,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "validation_interval": 20,
+    "save_interval": 20
+  },
+  "evaluation": {
+    "writer_temperature": 0.0,
+    "writer_samples_per_history": 1,
+    "training_seeds": [
+      101,
+      202,
+      303
+    ],
+    "capacities": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "locked_primary_capacity": 1024,
+    "cohort_questions_per_history": 16,
+    "cluster_unit": "source_world",
+    "bootstrap_replicates": 10000,
+    "checkpoint_rule": "highest_dev_task_score_then_earliest",
+    "final_external_access": "locked_until_protocol_freeze"
+  },
+  "hardware": {
+    "share_writer_reader_backbone": true,
+    "trainer_physical_gpus": [
+      0,
+      1
+    ],
+    "rollout_physical_gpus": [
+      2,
+      3
+    ],
+    "rollout_gpu_memory_utilization": 0.8,
+    "max_active_writer_sequences_per_worker": 8,
+    "max_active_reader_sequences_per_worker": 16,
+    "embedding_device": "cpu",
+    "schedule": "split_2train_2rollout",
+    "gpu_count": 4
+  },
+  "logging": {
+    "retain_all_evaluation_events": true,
+    "full_prompt_fraction_train": 0.02,
+    "full_prompt_fraction_eval": 0.05,
+    "retain_exact_training_token_ids": true,
+    "storage_compression": "zstd"
+  },
+  "continuation": {
+    "enabled": true,
+    "mode": "fork",
+    "futures_per_prefix": 2,
+    "reuse_prefix": true,
+    "reward_endpoint": "future_mean",
+    "prefix_boundary_event_fractions": [
+      0.5,
+      0.75
+    ],
+    "kernel_version": "ledger_future_v1",
+    "target_age_mixture": {
+      "recent": 0.4,
+      "old": 0.2,
+      "uniform": 0.4
+    },
+    "future_rng_independent_of_writer_actions": true,
+    "share_futures_across_g": true,
+    "share_queries_across_g": true,
+    "reveal_future_before_fork": false,
+    "raw_history_archive_access": false,
+    "allocator": {
+      "enabled": false,
+      "pool_size": 8,
+      "draws": 2,
+      "epsilon": 0.25
+    }
+  },
+  "resources": {
+    "project_gpu_hour_cap": 1500.0,
+    "run_gpu_hour_cap": null,
+    "require_measured_projection": true,
+    "charge_allocated_idle_devices": true
+  },
+  "artifacts": {
+    "runtime_lock": null,
+    "data_manifest": null,
+    "gate_receipts": null,
+    "protocol_freeze": null
+  }
+}

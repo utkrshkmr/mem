@@ -1,0 +1,23 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision_from_cache_ref": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "local_files_only": true,
+  "dtype": "bfloat16",
+  "attention": "sdpa",
+  "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+  "prompt_tokens": 36,
+  "completion_ids": [
+    562,
+    151645
+  ],
+  "logprob_mode": "logits_to_keep",
+  "mae": 6.138744765848969e-06,
+  "max_abs": 1.2159211564721772e-05,
+  "reader_repeat_max_abs": 0.0,
+  "adapter_disabled_max_abs_vs_base": 0.0,
+  "adapter_enabled_max_abs_vs_base": 0.0001200186088681221,
+  "reader_adapter": null,
+  "peft_version": "0.21.0",
+  "vllm": "not_run",
+  "note": "HF greedy scores versus teacher forcing on one GPU. Not a training result."
+}

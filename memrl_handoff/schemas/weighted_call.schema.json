@@ -1,0 +1,123 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 3
+    },
+    "call_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase": {
+      "enum": [
+        "prefix",
+        "suffix"
+      ]
+    },
+    "history_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "prefix_sample": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "branch_index": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "adapter_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "raw_advantage": {
+      "type": "number"
+    },
+    "branch_factor": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "inclusion_probability": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "global_groups": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "G": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "K": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fixed_scale": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "group_denominator": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "call_logprob_sum": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "schema_version",
+    "call_id",
+    "phase",
+    "history_index",
+    "prefix_sample",
+    "branch_index",
+    "adapter_sha256",
+    "raw_advantage",
+    "branch_factor",
+    "inclusion_probability",
+    "global_groups",
+    "G",
+    "K",
+    "fixed_scale",
+    "group_denominator",
+    "call_logprob_sum"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:memrl:weighted-call:3",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "phase": {
+            "const": "prefix"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "branch_index": {
+            "type": "null"
+          },
+          "branch_factor": {
+            "const": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "branch_index": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  ]
+}

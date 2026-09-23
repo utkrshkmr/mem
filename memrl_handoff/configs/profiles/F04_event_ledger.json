@@ -1,0 +1,11 @@
+{
+  "run": {
+    "arm": "F04_event_ledger",
+    "name": "ledger_development",
+    "mode": "evaluate_baseline"
+  },
+  "continuation": {
+    "mode": "event_ledger",
+    "reuse_prefix": true
+  }
+}

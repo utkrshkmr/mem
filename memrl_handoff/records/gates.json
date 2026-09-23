@@ -1,0 +1,67 @@
+{
+  "schema_version": 3,
+  "gates": {
+    "G00": {
+      "status": "passed",
+      "evidence": ["VALIDATION.md", "records/IMPLEMENTATION_STATUS.md"],
+      "code_commit": null,
+      "config_sha256": "432e34adb81cf45379b12fdf1e0342de68544169a9ee5037fbb5901748703d99",
+      "note": "Reference tests plus production tests, 2026-09-23."
+    },
+    "G01": {
+      "status": "passed",
+      "evidence": ["tests/environment/test_store.py", "src/memrl/contracts/types.py"],
+      "code_commit": null,
+      "config_sha256": null,
+      "note": "Unknown adapter on the reader, unpinned revisions, and corrupt logprob lengths are rejected."
+    },
+    "G02": {
+      "status": "passed",
+      "evidence": ["tests/data/test_worlds.py"],
+      "code_commit": null,
+      "config_sha256": null,
+      "note": "CPU core family with the codepoint counter. Pinned-tokenizer 8k/32k manifests are not frozen."
+    },
+    "G03": {
+      "status": "passed",
+      "evidence": ["tests/environment/test_store.py", "tests/runtime/test_runtime.py", "tests/integration/test_pipeline.py"],
+      "code_commit": null,
+      "config_sha256": null,
+      "note": "Charging, atomic rejection, clone isolation, and prompt canaries use the injected test counter."
+    },
+    "G04": {
+      "status": "in_progress",
+      "evidence": [
+        "reports/api_probe/hf_logprob.json",
+        "reports/api_probe/vllm_hf.json",
+        "reports/api_probe/vllm_025_failure.json"
+      ],
+      "code_commit": null,
+      "config_sha256": null,
+      "note": "HF self-check and one greedy token-id match exist. Sampled vLLM logprob parity and a single locked stack do not."
+    },
+    "G05": {
+      "status": "in_progress",
+      "evidence": [
+        "tests/learning/test_loss.py",
+        "reports/api_probe/lora_one_step.json",
+        "reports/api_probe/ddp_grad.json"
+      ],
+      "code_commit": null,
+      "config_sha256": null,
+      "note": "CPU estimator matches the reference. One 7B LoRA step is finite. Two-rank agreement is on Qwen2.5-0.5B, not the study model."
+    },
+    "G06": {
+      "status": "in_progress",
+      "evidence": ["tests/runtime/test_runtime.py"],
+      "code_commit": null,
+      "config_sha256": null,
+      "note": "Lease exclusion, atomic publication, and resume indexing pass on CPU. No four-GPU worker crash drill."
+    },
+    "G07": {"status": "not_started", "evidence": [], "code_commit": null, "config_sha256": null},
+    "G08": {"status": "not_started", "evidence": [], "code_commit": null, "config_sha256": null},
+    "G09": {"status": "not_started", "evidence": [], "code_commit": null, "config_sha256": null},
+    "G10": {"status": "not_started", "evidence": [], "code_commit": null, "config_sha256": null},
+    "G11": {"status": "not_started", "evidence": [], "code_commit": null, "config_sha256": null}
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "python": "3.13.2",
+  "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39",
+  "cpu_count": 128,
+  "disk_total_bytes": 42487400890368,
+  "disk_free_bytes": 38645674278912,
+  "nvidia_smi_query": "index, uuid, name, memory.total [MiB], memory.free [MiB], driver_version, compute_cap\n0, GPU-1e3c94bc-9dba-f4c0-fe53-9c694c4c1813, NVIDIA H100 80GB HBM3, 81559 MiB, 81090 MiB, 570.211.01, 9.0\n1, GPU-602f9944-412e-5e8c-b8b8-521312722e78, NVIDIA H100 80GB HBM3, 81559 MiB, 81090 MiB, 570.211.01, 9.0\n2, GPU-ef3f3bd4-8d56-b367-fc34-9ebb3a69b30c, NVIDIA H100 80GB HBM3, 81559 MiB, 81090 MiB, 570.211.01, 9.0\n3, GPU-1b0baea2-dcf5-d0ad-7588-ce99f213dac8, NVIDIA H100 80GB HBM3, 81559 MiB, 81090 MiB, 570.211.01, 9.0\n",
+  "topology": "\t\u001b[4mGPU0\tGPU1\tGPU2\tGPU3\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tNV6\tNV6\tNV6\t0,2,4,6,8,10\t0\t\tN/A\nGPU1\tNV6\t X \tNV6\tNV6\t0,2,4,6,8,10\t0\t\tN/A\nGPU2\tNV6\tNV6\t X \tNV6\t1,3,5,7,9,11\t1\t\tN/A\nGPU3\tNV6\tNV6\tNV6\t X \t1,3,5,7,9,11\t1\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks\n",
+  "torch": "2.11.0+cu128",
+  "torch_cuda": "12.8",
+  "cuda_available": true,
+  "bf16_supported": true,
+  "torch_devices": [
+    {
+      "index": 0,
+      "name": "NVIDIA H100 80GB HBM3",
+      "total_memory": 85028372480,
+      "major": 9,
+      "minor": 0,
+      "uuid": "1e3c94bc-9dba-f4c0-fe53-9c694c4c1813"
+    },
+    {
+      "index": 1,
+      "name": "NVIDIA H100 80GB HBM3",
+      "total_memory": 85028372480,
+      "major": 9,
+      "minor": 0,
+      "uuid": "602f9944-412e-5e8c-b8b8-521312722e78"
+    },
+    {
+      "index": 2,
+      "name": "NVIDIA H100 80GB HBM3",
+      "total_memory": 85028372480,
+      "major": 9,
+      "minor": 0,
+      "uuid": "ef3f3bd4-8d56-b367-fc34-9ebb3a69b30c"
+    },
+    {
+      "index": 3,
+      "name": "NVIDIA H100 80GB HBM3",
+      "total_memory": 85028372480,
+      "major": 9,
+      "minor": 0,
+      "uuid": "1b0baea2-dcf5-d0ad-7588-ce99f213dac8"
+    }
+  ],
+  "bf16_matmul_finite": true,
+  "ddp": {
+    "sum0": 3.0
+  }
+}

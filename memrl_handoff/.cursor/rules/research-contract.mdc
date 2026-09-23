@@ -1,0 +1,9 @@
+---
+description: Scientific and implementation invariants for the MEMRL rebuild
+alwaysApply: true
+---
+Read @AGENTS.md and @README.md. Use @docs/PARALLEL_BUILD.md for ownership and @docs/INTERFACES.md for shared contracts. Revision-3 overrides in @MEMRL_SPEC.md are authoritative.
+
+Do not fabricate results or claim a runnable trainer exists before its acceptance tests pass. Keep hidden future events, gold labels and test questions out of writer inputs. Keep the primary reader frozen and adapter-free. Exact prompt IDs, adapter hashes and charged serialized memory must be replayable. All changes to experimental semantics require a decision record and protocol version.
+
+Implement only your assigned task packet. The coordinator integrates interface changes and controls GPU leases. The CPU reference package is a verified small example; production modules belong under src/memrl and require their own tests. No unchecked shortcuts to increase GPU utilization or improve scores.

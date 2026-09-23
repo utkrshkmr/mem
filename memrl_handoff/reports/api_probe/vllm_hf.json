@@ -1,0 +1,12 @@
+{
+  "hf_completion_ids": [
+    562,
+    151645
+  ],
+  "vllm_completion_ids": [
+    562,
+    151645
+  ],
+  "token_ids_equal": true,
+  "vllm_version": "0.10.2"
+}

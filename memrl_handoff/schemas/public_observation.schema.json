@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "task_instruction": {
+      "type": "string"
+    },
+    "chunk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "is_last_in_visible_phase": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text",
+        "sequence_index",
+        "is_last_in_visible_phase"
+      ]
+    },
+    "memory_index": {
+      "type": "string"
+    },
+    "loaded_text": {
+      "type": "string"
+    },
+    "last_tool_result": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_instruction",
+    "chunk",
+    "memory_index",
+    "loaded_text",
+    "last_tool_result"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:memrl:public-observation:3",
+  "title": "Writer observation; routing and private labels forbidden"
+}

@@ -1,0 +1,10 @@
+{
+  "run": {
+    "arm": "F05_duplicate_future",
+    "name": "duplicatefuture_development"
+  },
+  "continuation": {
+    "mode": "duplicate_future",
+    "reuse_prefix": true
+  }
+}

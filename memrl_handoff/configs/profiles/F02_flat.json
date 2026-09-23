@@ -1,0 +1,10 @@
+{
+  "run": {
+    "arm": "F02_flat",
+    "name": "flat_development"
+  },
+  "continuation": {
+    "mode": "flat",
+    "reuse_prefix": false
+  }
+}

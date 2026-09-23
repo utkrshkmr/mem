@@ -1,0 +1,11 @@
+{
+  "task_instruction": "Maintain bounded memory for later queries. Events use the declared ledger semantics.",
+  "chunk": {
+    "text": "{\"event\":\"create\",\"id\":\"p\",\"value\":2}",
+    "sequence_index": 0,
+    "is_last_in_visible_phase": false
+  },
+  "memory_index": "",
+  "loaded_text": "",
+  "last_tool_result": ""
+}

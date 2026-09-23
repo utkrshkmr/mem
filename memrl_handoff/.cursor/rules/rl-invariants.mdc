@@ -1,0 +1,10 @@
+---
+description: On-policy RL and continuation-branch estimator requirements
+globs: src/memrl/rl/**/*.py,src/memrl/runtime/**/*.py
+alwaysApply: false
+---
+Read @docs/CONTINUATION_METHOD.md and @docs/RUNTIME_WIRING.md. Use the actual recorded prompt and completion IDs. One collection adapter hash must match the pre-update trainer adapter hash. Frozen-reader tokens never receive policy loss.
+
+For forked-future training, independent prefix groups are indexed by g and hidden environment futures by k. Leave-one-out is across g for a fixed k, never across k. Weight shared prefix calls once by mean_k A[g,k], suffix calls by A[g,k]/K, and use the fixed H*G*Z denominator. Call subsampling uses inverse inclusion probability. Do not normalize by sampled token count or introduce PPO clipping into the rloo_pg arm.
+
+Report unclipped gradient checks separately from nonlinear clipped optimizer updates. Clear or correctly key inference caches across adapter changes. Complete every required branch before publishing an optimizer update.

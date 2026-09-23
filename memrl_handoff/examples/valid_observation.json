@@ -1,0 +1,11 @@
+{
+  "task_instruction": "Read the history and keep a bounded memory.",
+  "chunk": {
+    "text": "alpha",
+    "sequence_index": 0,
+    "is_last_in_visible_phase": false
+  },
+  "memory_index": "",
+  "loaded_text": "",
+  "last_tool_result": ""
+}

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+build/
+runs/
+data/
+models/
+*.safetensors
+*.pt
+*.bin
+.env
+hf-tok
+*.key
+*.pem

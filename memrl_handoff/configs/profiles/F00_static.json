@@ -1,0 +1,13 @@
+{
+  "run": {
+    "arm": "F00_static",
+    "name": "static_development"
+  },
+  "continuation": {
+    "enabled": false,
+    "mode": "static",
+    "futures_per_prefix": 1,
+    "reuse_prefix": false,
+    "reward_endpoint": "current_mean"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "run": {
+    "arm": "F01_singlefuture",
+    "name": "singlefuture_development"
+  },
+  "continuation": {
+    "mode": "single",
+    "futures_per_prefix": 1,
+    "reuse_prefix": false
+  }
+}

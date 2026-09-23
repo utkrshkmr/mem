@@ -1,0 +1,165 @@
+{
+  "schema_version": 3,
+  "status": "planning_not_results",
+  "primary_contrast": [
+    "F03_fork",
+    "F02_flat"
+  ],
+  "project_gpu_hour_cap": 1500,
+  "studies": [
+    {
+      "id": "F0",
+      "title": "correctness",
+      "optional": false,
+      "completion_gates": [
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "G05",
+        "G06"
+      ]
+    },
+    {
+      "id": "F1",
+      "title": "capacity_and_baselines",
+      "optional": false,
+      "completion_gates": [
+        "G07"
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "learning_pilot",
+      "optional": false,
+      "completion_gates": [
+        "G07"
+      ]
+    },
+    {
+      "id": "F3",
+      "title": "core_replication",
+      "optional": false,
+      "completion_gates": [
+        "G08"
+      ]
+    },
+    {
+      "id": "F4",
+      "title": "compute_matched_method",
+      "optional": false,
+      "completion_gates": [
+        "G08"
+      ]
+    },
+    {
+      "id": "F5",
+      "title": "heldout_continuations",
+      "optional": false,
+      "completion_gates": [
+        "G09"
+      ]
+    },
+    {
+      "id": "F6",
+      "title": "mechanism_and_ablations",
+      "optional": false,
+      "completion_gates": [
+        "G09"
+      ]
+    },
+    {
+      "id": "F7",
+      "title": "natural_and_external",
+      "optional": false,
+      "completion_gates": [
+        "G09"
+      ]
+    },
+    {
+      "id": "F8",
+      "title": "runtime_systems",
+      "optional": true,
+      "completion_gates": [
+        "G08"
+      ]
+    },
+    {
+      "id": "F9",
+      "title": "second_backbone",
+      "optional": true,
+      "completion_gates": [
+        "G08"
+      ]
+    }
+  ],
+  "suites": {
+    "pilot": {
+      "study": "F2",
+      "arms": [
+        "F01_singlefuture",
+        "F02_flat",
+        "F03_fork",
+        "F04_event_ledger"
+      ],
+      "seeds": [
+        101
+      ],
+      "capacities": [
+        1024
+      ],
+      "iterations": 20,
+      "development_only": true,
+      "required_gates": [
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "G05",
+        "G06",
+        "G07"
+      ]
+    },
+    "core": {
+      "study": "F3",
+      "arms": [
+        "F01_singlefuture",
+        "F02_flat",
+        "F03_fork"
+      ],
+      "seeds": [
+        101,
+        202,
+        303
+      ],
+      "capacities": [
+        1024
+      ],
+      "iterations": 200,
+      "development_only": true,
+      "required_gates": [
+        "G08"
+      ]
+    },
+    "ablation": {
+      "study": "F6",
+      "arms": [
+        "F00_static",
+        "F05_duplicate_future"
+      ],
+      "seeds": [
+        101,
+        202,
+        303
+      ],
+      "capacities": [
+        1024
+      ],
+      "iterations": 200,
+      "development_only": true,
+      "required_gates": [
+        "G08"
+      ]
+    }
+  }
+}

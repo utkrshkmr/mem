@@ -1,0 +1,9 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "python": "3.13.2",
+  "vllm_version": "0.25.1",
+  "status": "failed",
+  "error": "Engine core initialization failed: cudaHostGetDevicePointer failed: CUDA driver version is insufficient for CUDA runtime version",
+  "driver": "570.211.01",
+  "note": "Import succeeded only after adding the CUDA 13 libcudart directory. Engine startup did not. This is not a parity result."
+}
