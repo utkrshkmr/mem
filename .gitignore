@@ -5,3 +5,19 @@ hf-tok
 __pycache__/
 *.py[cod]
 memrl_handoff/reports/api_probe/*.pt
+memrl_handoff/reports/api_probe/adapters/
+
+# kmatters (PLAN.md §5.3 and §6 outputs)
+.venv/
+models/
+runs/
+profiles/
+variance/
+jobs/
+*.safetensors
+*.pt
+.pytest_cache/
+*.egg-info/
+# reports/: only the markdown reports are committed (PLAN.md §6)
+reports/*
+!reports/*.md

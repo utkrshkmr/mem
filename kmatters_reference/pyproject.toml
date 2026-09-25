@@ -1,0 +1,15 @@
+[project]
+name = "kmatters"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["kmatters*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "gpu: needs one H100 and the local model",
+  "slow: long-running",
+  "stats: statistical validity tests (GPU, minutes)",
+]

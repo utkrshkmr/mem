@@ -1,0 +1,5 @@
+config_sha256: 5beea1a4a34c62782bfb2f911c606741a3bab8f92d80a118fa053c28af12e8ba
+downloaded_at: '2026-09-25T16:55:05.218009+00:00'
+local_dir: /home/csgrad/utkarshk/mem/models/Qwen3-4B-Instruct-2507
+repo: Qwen/Qwen3-4B-Instruct-2507
+revision: cdbee75f17c01a7cc42f958dc650907174af0554

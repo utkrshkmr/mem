@@ -1,6 +1,0 @@
-{
-  "model": "Qwen/Qwen2.5-0.5B-Instruct",
-  "max_abs_grad_sample": 0.0,
-  "equal_within_1e-4": true,
-  "note": "0.5B engineering check on GPUs 2 and 3. Both ranks see the same batch, so DDP's average matches the single-process gradient up to numerics. This is not the 7B study run."
-}

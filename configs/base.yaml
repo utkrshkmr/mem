@@ -1,0 +1,73 @@
+model:
+  repo: Qwen/Qwen3-4B-Instruct-2507
+  local_dir: models/Qwen3-4B-Instruct-2507
+  dtype: bfloat16
+  attn_implementation: sdpa
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.0            # MUST be 0
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+  init_seed_offset: 1000  # torch.manual_seed(seed + offset) before get_peft_model
+
+vllm:
+  kv_cache_memory_bytes: 30064771072    # 28 GiB; reduce if T2.10 fails
+  max_model_len: 4096
+  max_num_seqs: 512                     # tuned in Phase 3 (§10), then locked
+  max_num_batched_tokens: 16384         # tuned in Phase 3, then locked
+  enable_prefix_caching: true
+  enforce_eager: false
+  max_loras: 2
+  max_lora_rank: 16
+  max_cpu_loras: 4
+  per_request_seeds: false              # true only in determinism tests (slow sampler path)
+
+env:
+  level: 3          # set by calibration (Gate G2) in configs/locked.yaml
+  L: 16             # prefix chunks
+  U: 2              # future chunks
+  B: 512            # memory budget = writer max_tokens
+
+sampling:
+  writer_temperature: 1.0
+  reader_max_tokens: 12
+
+estimator:
+  baseline: loo_prefix   # E1; "tree" = E2 ablation (not run in the main sweep)
+  T_norm: 512            # constant loss normalizer; do NOT tie to B
+
+train:
+  F: 64
+  K: 4                   # N = F/K
+  lr: 3.0e-5             # set by the pilot (Gate G4)
+  betas: [0.9, 0.99]
+  eps: 1.0e-8
+  weight_decay: 0.0
+  grad_clip: null        # set at G4 to 5x the pilot median grad norm (catastrophe guard only)
+  max_tokens_per_microbatch: 16384
+  iterations: 250        # I_max; confirmed at G4
+  seed: 0
+  executor: async_ready  # "barrier" is allowed only in profiling
+  eval_every: 10
+  ckpt_every: 10
+  keep_optimizer_ckpts: 2
+
+eval:
+  small: {n_prefixes: 128, futures_per_prefix: 4, eval_seed: 12345}   # every eval_every iterations
+  large: {n_prefixes: 512, futures_per_prefix: 4, eval_seed: 54321}   # at it=0, I_max/2, I_max
+
+profile:
+  reps: 3
+  warmup: 1
+  lr: 0.0              # policy must not move during profiling (T5.3)
+
+variance:
+  N0: 64
+  K0: 8
+
+paths:
+  runs: runs
+  profiles: profiles
+  variance: variance
+  reports: reports

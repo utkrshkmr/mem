@@ -1,7 +1,0 @@
-{
-  "status": "unmeasured_template",
-  "units": "allocated_gpu_hours_per_complete_run",
-  "projection_basis": null,
-  "safety_factor": 1.25,
-  "costs": {}
-}
