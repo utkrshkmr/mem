@@ -1,0 +1,11 @@
+# Variance measurements (PLAN.md §10 Phases 3 and 6).
+variance0:                 # base policy (adapter v0), ckpt_it = 0
+  conditions: [{L: 16, B: 512}, {L: 4, B: 512}, {L: 16, B: 256}, {L: 16, B: 1024}]
+  vseeds: [0, 1]
+reference:                 # predeclared reference checkpoint: K = 4, seed 0, final
+  K: 4
+  seed: 0
+variance_trained:
+  a: {L: 16, B: 512, vseed: 0, its: [100, final], Ks: [1, 4, 16], seed: 0}
+  b: {conditions: [{L: 4, B: 512}, {L: 16, B: 256}, {L: 16, B: 1024}], vseed: 0}
+  c: {L: 16, B: 512, vseed: 1}

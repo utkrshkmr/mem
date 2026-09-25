@@ -1,0 +1,6 @@
+# Phase 6 trained grid (PLAN.md §8.13): condition A at the reference checkpoint (27 cells)
+# plus the barrier cell (32, 4) used by the Q3 profile-once model (a).
+cells: {N: [4, 8, 16, 32, 64, 128], K: [1, 2, 4, 8, 16], max_NK: 512}
+conditions:
+  A: {executor: async_ready, L: 16, B: 512}
+  Bbar: {executor: barrier, L: 16, B: 512, cells: {list: [[32, 4]]}}

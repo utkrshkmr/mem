@@ -58,9 +58,14 @@ def test_T0_3_hf_auth_and_no_token_leak(record):
         tok = load_hf_token()
     finally:
         os.chdir(cwd)
-    from huggingface_hub import HfApi
-    who = HfApi(token=tok).whoami()
-    assert who.get("name"), "whoami returned no user"
+    # whoami needs the network: run it with offline mode unset (the GPU conftest sets HF_HUB_OFFLINE=1,
+    # and huggingface_hub reads it at import time). The token reaches the child via HF_TOKEN.
+    env = dict(os.environ)
+    env.pop("HF_HUB_OFFLINE", None)
+    p = subprocess.run([sys.executable, "-c", "from huggingface_hub import HfApi; "
+                        "print(bool(HfApi().whoami().get('name')))"], env=env, capture_output=True, text=True,
+                       timeout=120)
+    assert p.returncode == 0 and p.stdout.strip() == "True", "whoami returned no user: " + p.stderr[-500:]
     # grep for the token with a pattern file, so it never appears on a command line
     with tempfile.TemporaryDirectory() as d:
         pat = Path(d) / "pat"

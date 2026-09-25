@@ -1,6 +1,7 @@
 """Run a jobs/<phase>.jsonl file on the GPUs, one job per GPU (PLAN.md §8.14).
 
-Each line: {job_id, cmd, out_dir, est_hours, gpu_need: 1} plus optional `resume_cmd` and `env`.
+Each line: {job_id, cmd, out_dir, est_hours, gpu_need: 1} plus optional `resume_cmd`, `env` and `cwd`
+(the job runs in `cwd`, and `out_dir` is relative to it).
   * Longest-processing-time-first order; starts staggered by --stagger seconds.
   * A job whose <out_dir>/DONE exists is skipped.
   * A job with partial output (out_dir non-empty, no DONE) starts in resume mode.
@@ -40,6 +41,11 @@ def load_jobs(path: Path) -> list[dict]:
             raise ValueError(f"{j['job_id']}: only gpu_need == 1 is supported")
     # LPT: longest first; ties keep file order (sorted is stable)
     return sorted(jobs, key=lambda j: -float(j.get("est_hours", 0.0)))
+
+
+def out_path(job: dict) -> Path:
+    """out_dir is relative to the job's cwd when it has one."""
+    return Path(job.get("cwd", ".")) / job["out_dir"]
 
 
 def has_partial(out_dir: Path) -> bool:
@@ -83,7 +89,7 @@ class Queue:
         self.pending: list[tuple[dict, bool]] = []                           # (job, resume)
         self.launch_order: list[str] = []
         for j in self.jobs:
-            if (Path(j["out_dir"]) / "DONE").exists():
+            if (out_path(j) / "DONE").exists():
                 self.state[j["job_id"]]["state"] = "SKIPPED_DONE"
             else:
                 self.pending.append((j, False))
@@ -106,13 +112,13 @@ class Queue:
     # ------------------------------------------------------------------ launch/reap
     def launch(self, gpu: str, job: dict, resume: bool):
         jid = job["job_id"]
-        out_dir = Path(job["out_dir"])
+        out_dir = out_path(job)
         resume = resume or has_partial(out_dir)
         cmd = job.get("resume_cmd", job["cmd"]) if resume else job["cmd"]
         log = open(self.log_dir / f"{jid}.log", "a")
         log.write(f"\n===== {now_iso()} launch on GPU {gpu} (resume={resume}) =====\n{cmd}\n")
         log.flush()
-        proc = subprocess.Popen(cmd, shell=True, stdout=log, stderr=subprocess.STDOUT,
+        proc = subprocess.Popen(cmd, shell=True, stdout=log, stderr=subprocess.STDOUT, cwd=job.get("cwd"),
                                 env=job_env(gpu, len(self.gpus), job.get("env"), self.distinct_ports),
                                 start_new_session=True)
         st = self.state[jid]
@@ -132,7 +138,7 @@ class Queue:
             del self.running[gpu]
             st = self.state[job["job_id"]]
             st["exit_codes"].append(rc)
-            done = (Path(job["out_dir"]) / "DONE").exists()
+            done = (out_path(job) / "DONE").exists()
             if rc == 0 and done:
                 st["state"] = "DONE"
             elif st["attempts"] < MAX_ATTEMPTS:

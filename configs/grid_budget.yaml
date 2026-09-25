@@ -1,0 +1,5 @@
+# Phase 3 memory-budget grid (PLAN.md §8.13): 8 (N, K) cells x 2 budgets = 16 cells.
+cells: {list: [[8, 1], [8, 4], [8, 16], [32, 1], [32, 4], [32, 16], [128, 1], [128, 4]]}
+conditions:
+  B256: {executor: async_ready, L: 16, B: 256}
+  B1024: {executor: async_ready, L: 16, B: 1024}

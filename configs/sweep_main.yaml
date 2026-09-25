@@ -1,0 +1,6 @@
+# Phase 5 main sweep (PLAN.md §10). FROZEN AT GATE G4: lr, grad_clip and iterations are set from
+# the pilot and the timing projection, then copied into prereg/PREREG.md. K and seed are set per job.
+train:
+  iterations: 250
+  eval_every: 10
+  ckpt_every: 10

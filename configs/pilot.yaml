@@ -1,0 +1,8 @@
+# Phase 4 learning-rate pilot (PLAN.md §10): K in {1, 16} x lr in {1e-5, 3e-5, 1e-4}, seed 100
+# (not a sweep seed), 60 iterations, small eval every 10. K and lr are set per job by make_jobs.py.
+train:
+  seed: 100
+  iterations: 60
+  eval_every: 10
+  ckpt_every: 10
+  grad_clip: null

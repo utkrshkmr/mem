@@ -1,0 +1,6 @@
+# Phase 3/6 cost grid (PLAN.md §8.13): 27 (N, K) cells x 3 conditions = 81 cells.
+cells: {N: [4, 8, 16, 32, 64, 128], K: [1, 2, 4, 8, 16], max_NK: 512}
+conditions:
+  A: {executor: async_ready, L: 16, B: 512}
+  B: {executor: barrier, L: 16, B: 512}
+  C: {executor: async_ready, L: 4, B: 512}
